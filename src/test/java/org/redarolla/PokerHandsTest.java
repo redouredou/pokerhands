@@ -3,10 +3,7 @@ package org.redarolla;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Unit test for simple App.
@@ -50,12 +47,13 @@ public class PokerHandsTest
     }
 
     private String evaluate(String hand) {
-        if(hand.equals("2H 3D 5S 6C 4D")){
-            return "6";
-        }
-        if(hand.equals("2H 3D 5S 9C 4D")){
-            return "9";
-        }
-        return "10";
+        String[] cards = hand.split(" ");
+        String[] cardValues = Arrays
+                .stream(cards)
+                .map(card -> card.replaceAll("\\D+",""))
+                .toArray(String[]::new);
+        int cardMaxValue = Arrays.stream(cardValues).map(Integer::parseInt).max(Integer::compare).get();
+
+        return ""+cardMaxValue;
     }
 }
