@@ -4,7 +4,7 @@ package org.redarolla;
  * Hello world!
  *
  */
-public class App 
+public class PokerHands
 {
     public static void main( String[] args )
     {
