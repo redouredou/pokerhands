@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.stream.Stream;
 
+
 class PokerHandsTest
 {
 
@@ -24,27 +25,35 @@ class PokerHandsTest
         return Stream.of(
                 Arguments.of(
                         new Hand(new HashSet<>(Arrays.asList(
-                                new Card("2","H"),
-                                new Card("3","D"),
-                                new Card("5","S"),
-                                new Card("9","C"),
-                                new Card("4","D")))), "9"
+                                new Card(Value.TWO,'H'),
+                                new Card(Value.THREE,'D'),
+                                new Card(Value.FOUR,'S'),
+                                new Card(Value.FIVE,'C'),
+                                new Card(Value.NINE,'D')))), "9"
                 ),
                 Arguments.of(
                         new Hand(new HashSet<>(Arrays.asList(
-                                new Card("2","H"),
-                                new Card("3","D"),
-                                new Card("5","S"),
-                                new Card("9","C"),
-                                new Card("10","D")))), "10"
+                                new Card(Value.TWO,'H'),
+                                new Card(Value.THREE,'D'),
+                                new Card(Value.FIVE,'S'),
+                                new Card(Value.SIX,'C'),
+                                new Card(Value.FOUR,'D')))), "6"
                 ),
                 Arguments.of(
                         new Hand(new HashSet<>(Arrays.asList(
-                                new Card("2","H"),
-                                new Card("3","D"),
-                                new Card("5","S"),
-                                new Card("6","C"),
-                                new Card("4","D")))), "6"
+                                new Card(Value.TWO,'H'),
+                                new Card(Value.THREE,'D'),
+                                new Card(Value.FIVE,'S'),
+                                new Card(Value.SIX,'C'),
+                                new Card(Value.TEN,'D')))), "T"
+                ),
+                Arguments.of(
+                        new Hand(new HashSet<>(Arrays.asList(
+                                new Card(Value.QUEEN,'H'),
+                                new Card(Value.TEN,'D'),
+                                new Card(Value.ACE,'S'),
+                                new Card(Value.KING,'C'),
+                                new Card(Value.JACK,'D')))), "A"
                 )
         );
     }

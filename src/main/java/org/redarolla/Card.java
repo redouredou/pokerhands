@@ -1,44 +1,22 @@
 package org.redarolla;
 
-import java.util.Objects;
-
 public class Card {
 
-    private String suit;
-    private String value;
+    private char suit;
+    private Value value;
 
-    public Card(String value, String suit) {
+    public Card(Value value, char suit) {
         this.value = value;
         this.suit = suit;
     }
 
-    public String getValue() {
+    public Value getValue() {
         return value;
     }
 
-    public String getSuit() {
+    public char getSuit() {
         return suit;
     }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Card card = (Card) o;
-        return suit.equals(card.suit) && value.equals(card.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(suit, value);
-    }
-
-    @Override
-    public String toString() {
-        return "Card{" +
-                "suit='" + suit + '\'' +
-                ", value='" + value + '\'' +
-                '}';
-    }
 }
