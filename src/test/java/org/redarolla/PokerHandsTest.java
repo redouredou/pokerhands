@@ -1,59 +1,52 @@
 package org.redarolla;
 
-
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.stream.Stream;
 
-/**
- * Unit test for simple App.
- */
-public class PokerHandsTest
+class PokerHandsTest
 {
-    /**
-     * Rigorous Test :-)
-     */
-    @Test
-    public void it_should_return_10_when_evaluate_hand_2H_3D_5S_9C_10D()
-    {
-        String hand = "2H 3D 5S 9C 10D";
-        String expectedCardValue = "10";
 
-        String actualCardValue = evaluate(hand);
+    @ParameterizedTest(name = " it should return the highest value {1} with the Hand {0} ")
+    @MethodSource("provideHandsCard")
+    void it_should_return_card_with_highest_value(Hand hand, String expectedValue){
 
-        Assertions.assertEquals(expectedCardValue, actualCardValue);
+        String actualValue = hand.evaluate();
+
+        Assertions.assertEquals(expectedValue, actualValue);
     }
 
-    @Test
-    public void it_should_return_9_when_evaluate_hand_2H_3D_5S_9C_4D()
-    {
-        String hand = "2H 3D 5S 9C 4D";
-        String expectedCardValue = "9";
-
-        String actualCardValue = evaluate(hand);
-
-        Assertions.assertEquals(expectedCardValue, actualCardValue);
+    public static Stream<Arguments> provideHandsCard(){
+        return Stream.of(
+                Arguments.of(
+                        new Hand(new HashSet<>(Arrays.asList(
+                                new Card("2","H"),
+                                new Card("3","D"),
+                                new Card("5","S"),
+                                new Card("9","C"),
+                                new Card("4","D")))), "9"
+                ),
+                Arguments.of(
+                        new Hand(new HashSet<>(Arrays.asList(
+                                new Card("2","H"),
+                                new Card("3","D"),
+                                new Card("5","S"),
+                                new Card("9","C"),
+                                new Card("10","D")))), "10"
+                ),
+                Arguments.of(
+                        new Hand(new HashSet<>(Arrays.asList(
+                                new Card("2","H"),
+                                new Card("3","D"),
+                                new Card("5","S"),
+                                new Card("6","C"),
+                                new Card("4","D")))), "6"
+                )
+        );
     }
 
-    @Test
-    public void it_should_return_6_when_evaluate_hand_2H_3D_5S_6C_4D()
-    {
-        String hand = "2H 3D 5S 6C 4D";
-        String expectedCardValue = "6";
-
-        String actualCardValue = evaluate(hand);
-
-        Assertions.assertEquals(expectedCardValue, actualCardValue);
-    }
-
-    private String evaluate(String hand) {
-        String[] cards = hand.split(" ");
-        String[] cardValues = Arrays
-                .stream(cards)
-                .map(card -> card.replaceAll("\\D+",""))
-                .toArray(String[]::new);
-        int cardMaxValue = Arrays.stream(cardValues).map(Integer::parseInt).max(Integer::compare).get();
-
-        return ""+cardMaxValue;
-    }
 }
